@@ -12,6 +12,11 @@
 #    pid (Passport ID): nine digits with leading zeroes
 #    cid (Country ID): dont matter
 
+
+# right answer is 186, i am off by one the mistake happens when i check for hgt, ecl or pid
+
+import string
+
 def get_data(fileName):
     with open(fileName, 'r') as f:
         data =f.read().split('\n\n')
@@ -21,6 +26,8 @@ def get_data(fileName):
         data[i] = data[i].split(' ')
         for j in range(len(data[i])):
             data[i][j] = data[i][j].split(':')
+   
+    data[len(data)-1].pop(len(data[len(data)-1])-1)
 
     return data
 
@@ -44,13 +51,60 @@ def check_passport(myList):
 
     return passportLen7 + passportLen8
 
+def is_hex(s):
+    for c in s:
+        if c not in string.hexdigits:
+            return False
+
+    return True
+
+def verify_passport(myList):
+    colours = ['amb','blu','brn','gry','grn','hzl','oth']
+
+    for i in range(len(myList)):
+        if(myList[i][0] == 'byr' and (int(myList[i][1]) > 2002 or int(myList[i][1]) < 1920)):
+            return False
+
+        elif(myList[i][0] == 'iyr' and (int(myList[i][1]) > 2020 or int(myList[i][1]) < 2010)):
+            return False
+
+        elif(myList[i][0] == 'eyr' and (int(myList[i][1]) > 2030 or int(myList[i][1]) < 2020)):
+            return False
+
+        elif(myList[i][0] == 'hgt'):
+            try:
+                if(myList[i][1][-2:] == 'in' and (int(myList[i][1][:2]) > 76 or int(myList[i][1][:2]) < 59)):
+                    return False
+                elif(myList[i][1][-2:] == 'cm' and (int(myList[i][1][:3]) > 193 or int(myList[i][1][:3]) < 150)):
+                    return False
+            except ValueError:
+                return False
+        
+        elif(myList[i][0] == 'hcl'):
+            if not (len(myList[i][1]) == 7 and myList[i][1][:-6] == '#' and is_hex(myList[i][1][1:])):
+                return False
+
+        elif(myList[i][0] == 'ecl' and (myList[i][1] not in colours)):
+            return False
+
+        elif(myList[i][0] == 'pid'):
+            if(len(myList[i][1]) != 9 and myList[i][1][:2] != '00'):
+                return False
+
+    return True
+
 def main_program():
     name = 'day4_input.txt'
     data = get_data(name)
 
-
+    count = 0
     results = (check_passport(data))
-    total = len(results)
-    print(total)
 
+#    print(results)
+
+    for i in range(len(results)):
+#        print(verify_passport(results[i]))
+        if(verify_passport(results[i]) == True):
+            count += 1
+    print(count)
 main_program()
