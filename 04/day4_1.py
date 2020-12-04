@@ -3,14 +3,14 @@
 # all necassary fields need to be provided in a dataset
 # datasets are separated by '\n\n' 
 # necassary fields: 
-#    byr (Birth Year)
-#    iyr (Issue Year)
-#    eyr (Expiration Year)
-#    hgt (Height)
-#    hcl (Hair Color)
-#    ecl (Eye Color)
-#    pid (Passport ID)
-#    cid (Country ID)
+#    byr (Birth Year): 1920 - 2002
+#    iyr (Issue Year): 2010 - 2020
+#    eyr (Expiration Year): 2020 - 2030
+#    hgt (Height): 150 -193 cm or 59 -76 in
+#    hcl (Hair Color): '#' followed by six digits '0-9' and 'a-f'
+#    ecl (Eye Color): amb, blu, brn, gry, grn, hzl, oth
+#    pid (Passport ID): nine digits with leading zeroes
+#    cid (Country ID): dont matter
 
 def get_data(fileName):
     with open(fileName, 'r') as f:
@@ -24,34 +24,33 @@ def get_data(fileName):
 
     return data
 
-def check_dataset(myList):
-    shortenedList = []
-    count = 0
-    countLenTen = 0
+def check_passport(myList):
+    #    checkList = [['byr', False], ['iyr', False], ['eyr', False], ['hgt', False], ['hcl', False], ['ecl', False], ['pid', False], ['cid',True]]
+    
+    passportLen7 = []
+    passportLen8 = []
     for i in range(len(myList)):
         if(len(myList[i]) == 7):
-            shortenedList.append(myList[i])
+            noCid = True
 
             for j in range(7):
                 if(myList[i][j][0] == 'cid'):
-                    count += 1
-                else:
-                    pass
+                    noCid = False
+            if(noCid == True):
+                passportLen7.append(myList[i])
 
         elif(len(myList[i]) == 8):
-            countLenTen += 1
-            pass
+            passportLen8.append(myList[i])
 
-    return [len(shortenedList), count, countLenTen]
+    return passportLen7 + passportLen8
 
 def main_program():
     name = 'day4_input.txt'
     data = get_data(name)
 
 
-    results = (check_dataset(data))
-    total = results[2] + results[0] - results[1]
-    print(results)
+    results = (check_passport(data))
+    total = len(results)
     print(total)
 
 main_program()
