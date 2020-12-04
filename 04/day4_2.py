@@ -24,15 +24,15 @@ def get_data(fileName):
 
     return data
 
-def check_dataset(myList):
-    checkList = [['byr', False], ['iyr', False], ['eyr', False], ['hgt', False], ['hcl', False], ['ecl', False], ['pid', False], ['cid',True]]
+def check_passport(myList):
+    #    checkList = [['byr', False], ['iyr', False], ['eyr', False], ['hgt', False], ['hcl', False], ['ecl', False], ['pid', False], ['cid',True]]
     
-    shortenedList = []
+    passportLen7 = []
+    passportLen8 = []
     count = 0
-    countLenTen = 0
     for i in range(len(myList)):
         if(len(myList[i]) == 7):
-            shortenedList.append(myList[i])
+            passportLen7.append(myList[i])
 
             for j in range(7):
                 if(myList[i][j][0] == 'cid'):
@@ -41,17 +41,16 @@ def check_dataset(myList):
                     pass
 
         elif(len(myList[i]) == 8):
-            countLenTen += 1
-            pass
+            passportLen8.append(myList[i])
 
-    return [len(shortenedList), count, countLenTen]
+    return [len(passportLen7), count, len(passportLen8)]
 
 def main_program():
     name = 'day4_input.txt'
     data = get_data(name)
 
 
-    results = (check_dataset(data))
+    results = (check_passport(data))
     total = results[2] + results[0] - results[1]
     print(results)
     print(total)
