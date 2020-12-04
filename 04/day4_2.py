@@ -29,21 +29,20 @@ def check_passport(myList):
     
     passportLen7 = []
     passportLen8 = []
-    count = 0
     for i in range(len(myList)):
         if(len(myList[i]) == 7):
-            passportLen7.append(myList[i])
+            noCid = True
 
             for j in range(7):
                 if(myList[i][j][0] == 'cid'):
-                    count += 1
-                else:
-                    pass
+                    noCid = False
+            if(noCid == True):
+                passportLen7.append(myList[i])
 
         elif(len(myList[i]) == 8):
             passportLen8.append(myList[i])
 
-    return [len(passportLen7), count, len(passportLen8)]
+    return passportLen7 + passportLen8
 
 def main_program():
     name = 'day4_input.txt'
@@ -51,8 +50,7 @@ def main_program():
 
 
     results = (check_passport(data))
-    total = results[2] + results[0] - results[1]
-    print(results)
+    total = len(results)
     print(total)
 
 main_program()
