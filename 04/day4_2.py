@@ -62,22 +62,26 @@ def verify_passport(myList):
     colours = ['amb','blu','brn','gry','grn','hzl','oth']
 
     for i in range(len(myList)):
-        if(myList[i][0] == 'byr' and (int(myList[i][1]) > 2002 or int(myList[i][1]) < 1920)):
-            return False
+        if(myList[i][0] == 'byr'):
+            if not(int(myList[i][1]) <= 2002 and int(myList[i][1]) >= 1920):
+                return False
 
-        elif(myList[i][0] == 'iyr' and (int(myList[i][1]) > 2020 or int(myList[i][1]) < 2010)):
-            return False
+        elif(myList[i][0] == 'iyr'):
+            if not(int(myList[i][1]) <= 2020 and int(myList[i][1]) >= 2010):
+                return False
 
-        elif(myList[i][0] == 'eyr' and (int(myList[i][1]) > 2030 or int(myList[i][1]) < 2020)):
-            return False
+        elif(myList[i][0] == 'eyr'):
+            if not(int(myList[i][1]) <= 2030 and int(myList[i][1]) >= 2020):
+                return False
 
         elif(myList[i][0] == 'hgt'):
             try:
-                if(myList[i][1][-2:] == 'in' and (int(myList[i][1][:2]) > 76 or int(myList[i][1][:2]) < 59)):
+                if(myList[i][1][-2:] == 'in' and not(int(myList[i][1][:2]) <= 76 and int(myList[i][1][:2]) >= 59)):
                     return False
-                elif(myList[i][1][-2:] == 'cm' and (int(myList[i][1][:3]) > 193 or int(myList[i][1][:3]) < 150)):
+                elif(myList[i][1][-2:] == 'cm' and not(int(myList[i][1][:3]) <= 193 and int(myList[i][1][:3]) >= 150)):
                     return False
-            except ValueError:
+
+            except Exception:
                 return False
         
         elif(myList[i][0] == 'hcl'):
@@ -89,6 +93,7 @@ def verify_passport(myList):
 
         elif(myList[i][0] == 'pid'):
             if(len(myList[i][1]) != 9 and myList[i][1][:2] != '00'):
+                print(myList[0])
                 return False
 
     return True
