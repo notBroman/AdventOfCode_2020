@@ -16,6 +16,7 @@ def get_data(fileName):
     return data
 
 def no_duplicates(myList):
+
     for i in range(len(myList)):
         myList[i] = ''.join(set(myList[i]))
 
