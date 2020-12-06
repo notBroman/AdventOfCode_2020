@@ -9,13 +9,14 @@
 def get_data(fileName):
     with open(fileName, 'r') as f:
         data = f.read().split('\n\n')
+        data[(len(data)-1)] = data[(len(data)-1)].replace('\n','')
 
     for i in range(len(data)):
-        data[i] = data[i].replace('\n','')
+        data[i] = data[i].replace('\n','-')
     
     return data
 
-def no_duplicates(myList):
+def erase_duplicates(myList):
     for i in range(len(myList)):
         myList[i] = ''.join(set(myList[i]))
 
@@ -24,17 +25,27 @@ def get_amount(myList):
 
     for i in range(len(myList)):
         total += len(myList[i])
-
     return total
+
+def get_collective_yes(myList):
+    for i in range(len(myList)):
+        if('-' in myList[i]):
+            j = 0
+            newItem = ''
+            while (j < myList[i].index('-')):
+                if(myList[i].count(myList[i][j]) > (myList[i].count('-'))):
+                    newItem += myList[i][j]
+                j += 1
+            myList[i] = newItem
 
 def main_program():
     name = 'input_day6.txt'
     test = 'test.txt'
 
     answers = get_data(name)
-    no_duplicates(answers)
-    print(answers)
-
+    print(len(answers))
+    get_collective_yes(answers)
+    print(len(answers))
     amount = get_amount(answers)
     print(amount)
 
