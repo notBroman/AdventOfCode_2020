@@ -3,6 +3,8 @@
 # you have a shiny gold bag
 # how many other bags can contain this bag
 
+import string
+
 def get_rules(fileName):
     with open(fileName, 'r') as inputFile:
         rules = inputFile.readlines()
@@ -40,5 +42,6 @@ def main():
 #    print(listOfBags)
 #    print(len(listOfBags)-1)
 
-main()
+if __name__ == '__main__':
+    main()
 
