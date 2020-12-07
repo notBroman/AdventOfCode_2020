@@ -19,7 +19,6 @@ def get_bags(listOfRules, newList):
     for i in range(len(listOfRules)):
         for j in range(len(newList)):
             if(newList[j] in listOfRules[i][1] and listOfRules[i][0][:-5] not in newList):
-                print(listOfRules[i][0])
                 newList.append(listOfRules[i][0][:-5])
 
     if(len(newList) > length):
@@ -28,15 +27,13 @@ def get_bags(listOfRules, newList):
 def main():
 
     name = 'input_day7.txt'
-    test = 'test.txt'
+#    test = 'test.txt'
     listOfBags = ['shiny gold']
 
     regulations = get_rules(name)
     get_bags(regulations, listOfBags)
 
-    print(regulations)
-    print(listOfBags)
-    print(len(listOfBags)-1)
+    print(len(listOfBags)-1, 'bags can contain shiny gold  bag')
 
 main()
 
