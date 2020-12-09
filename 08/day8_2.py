@@ -24,7 +24,7 @@ def execute(myList):
 
     while(i < len(myList)-1):
         if(i in executedLines):
-            i = len(myList) + 1
+            return executedLines
         elif(myList[i][0] == 'acc'):
             count += myList[i][1]
             executedLines.append(i)
@@ -38,13 +38,21 @@ def execute(myList):
 
     return count
 
+def change_operation(myList, indexOfChange):
+    if(myList[indexOfChange][0] == 'nop'):
+        myList[indexOfChange][0] = 'jmp'
+    elif(myList[indexOfChange][0] == 'jmp'):
+        myList[indexOfChange][0] = 'nop'
+    else:
+        print('Error')
+
 def main():
     name = 'input_day8.txt'
     test = 'test.txt'
 
     instructions = get_data(name)
     accumulator = execute(instructions)
-    print(instructions)
+#    print(instructions)
     print(accumulator)
 
 main()
