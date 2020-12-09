@@ -9,9 +9,11 @@
 def get_data(fileName):
     with open(fileName, 'r') as f:
         data = f.read().split('\n')
+        del data[len(data)-1]
 
     for i in range(len(data)):
         data[i] = data[i].split(' ')
+        data[i][1] = int(data[i][1])
 
     return data
 
