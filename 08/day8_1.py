@@ -40,11 +40,9 @@ def execute(myList):
 
 def main():
     name = 'input_day8.txt'
-    test = 'test.txt'
 
     instructions = get_data(name)
     accumulator = execute(instructions)
-    print(instructions)
     print(accumulator)
 
 main()
