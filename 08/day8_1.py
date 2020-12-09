@@ -17,12 +17,34 @@ def get_data(fileName):
 
     return data
 
+def execute(myList):
+    i = 0
+    count = 0
+    executedLines = []
+
+    while(i < len(myList)-1):
+        if(i in executedLines):
+            i = len(myList) + 1
+        elif(myList[i][0] == 'acc'):
+            count += myList[i][1]
+            executedLines.append(i)
+            i += 1
+        elif(myList[i][0] == 'jmp'):
+            executedLines.append(i)
+            i += myList[i][1]
+        else:
+            executedLines.append(i)
+            i += 1
+
+    return count
 
 def main():
     name = 'input_day8.txt'
     test = 'test.txt'
 
-    instructions = get_data(test)
+    instructions = get_data(name)
+    accumulator = execute(instructions)
     print(instructions)
+    print(accumulator)
 
 main()
