@@ -12,11 +12,23 @@ def get_numbers(fileName):
 
     return numbers
 
+def is_valid(myList, value):
+    for i in range(len(myList)-1):
+        for j in range(len(myList)-i):
+            if(value == (myList[i] + myList[i+j])):
+                return {'Success':True, 'Element': value}
+    return {'Success':False, 'Element':value}
+
 def main():
     name = 'input_day9.txt'
     test = 'test.txt'
 
-    data = get_numbers(test)
-    print(data)
+    data = get_numbers(name)
+    preamble = 25
+    for i in range(preamble, len(data)):
+        result = is_valid(data[i-preamble:i],data[i])
+        if(result['Success'] == False):
+            print(result)
+
 
 main()
