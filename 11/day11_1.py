@@ -78,9 +78,12 @@ def main():
     seats = check_seats(seats)
     print_seats(seats)
 
-    for i in range(1000):
-        seats = check_seats(seats)
-        print_seats(seats)
+    condition = True
+    while condition:
+        if seats == check_seats(seats)
+            condition == False
+        else:
+            seats =check_seats(seats)
 
     print(count_full_seats(seats))
 
