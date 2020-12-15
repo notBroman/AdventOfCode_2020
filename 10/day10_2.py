@@ -42,7 +42,7 @@ def main():
     test = 'test.txt'
     name = 'input_day10.txt'
 
-    jolts = get_jolts(test)
+    jolts = get_jolts(name)
     print(jolts)
     jolt_diff = get_diffs(jolts)
     print(jolt_diff)
