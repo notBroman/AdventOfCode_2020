@@ -27,13 +27,24 @@ def get_diffs(myList):
             n3 += 1
     return {'n1':n1, 'n3':n3}
 
-def main():
-    test = 'test.txt'
-    name = 'input_day10.txt'
+DP = {}
+def dp(i, myList):
+    if i == len(myList)-1:
+        return 1
+    if i in DP:
+        return DP[i]
+    ans = 0
+    for j in range(i+1, len(myList)):
+        if myList[j]-myList[i] <= 3:
+            ans += dp(j, myList)
+    DP[i] = ans
+    return ans
 
+def main():
     jolts = get_jolts()
-    print(jolts)
     jolt_diff = get_diffs(jolts)
     print(jolt_diff)
+
+    print(dp(0, jolts))
 
 main()
